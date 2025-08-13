@@ -1023,3 +1023,20 @@ class TableExpressionSegment(ansi.TableExpressionSegment):
             Ref("SqlplusSubstitutionVariableSegment"),
         ]
     )
+
+class DatatypeSegment(ansi.DatatypeSegment):
+    match_grammar = ansi.DatatypeSegment.match_grammar.copy(
+        insert = [
+            Sequence(
+                    "VARCHAR2",
+                    Bracketed(
+                        Anything(),
+                        OneOf(
+                            "BYTE",
+                            "CHAR",
+                            optional=True,
+                        ),
+                    )
+            )
+        ]
+    )
